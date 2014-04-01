@@ -1,0 +1,5 @@
+services:
+    majes.social:
+        class: Majes\CoreBundle\Services\Social
+        arguments: ["@service_container"]
+
