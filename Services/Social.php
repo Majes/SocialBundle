@@ -136,26 +136,27 @@ class Social {
         $session = $this->_session;
 
         $google_params = $session->get('google');
+        $authUrl = null;
+        if (!empty($google_params['oauth2_client_id']) && !empty($google_params['oauth2_client_secret']) && !empty($google_params['oauth2_api_key'])) {
+            $url = 'http://' . $this->_container->get('request')->getHost();
+            $url .= $this->_container->get('router')->generate('_majesteel_login_google');
 
-        $url = 'http://' . $this->_container->get('request')->getHost();
-        $url .= $this->_container->get('router')->generate('_majesteel_login_google');
+            $gClient = new \Google_Client();
+            $gClient->setApplicationName('flapwet');
+            $gClient->setClientId($google_params['oauth2_client_id']);
+            $gClient->setClientSecret($google_params['oauth2_client_secret']);
+            $gClient->setDeveloperKey($google_params['oauth2_api_key']);
+            $gClient->setRedirectUri($url);
 
-        $gClient = new \Google_Client();
-        $gClient->setApplicationName('flapwet');
-        $gClient->setClientId($google_params['oauth2_client_id']);
-        $gClient->setClientSecret($google_params['oauth2_client_secret']);
-        $gClient->setDeveloperKey($google_params['oauth2_api_key']);
-        $gClient->setRedirectUri($url);
+            $gClient->setScopes(array("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/userinfo.email"));
 
-        $gClient->setScopes(array("https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/userinfo.email"));
+            $gaccess_token = $session->get('gaccess_token');
+            if (isset($gaccess_token) && $gaccess_token) {
+                $gClient->setAccessToken($session->get('gaccess_token'));
+            }
 
-        $gaccess_token = $session->get('gaccess_token');
-        if (isset($gaccess_token) && $gaccess_token) {
-            $gClient->setAccessToken($session->get('gaccess_token'));
+            $authUrl = $gClient->createAuthUrl();
         }
-
-        $authUrl = $gClient->createAuthUrl();
-
         return $authUrl;
     }
 
