@@ -1,6 +1,6 @@
 <?php
 
-namespace Majes\CoreBundle\Services;
+namespace Majes\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,6 +20,29 @@ class Social {
         $this->_facebook = $this->_container->getParameter('facebook');
         $this->_twitter = $this->_container->getParameter('twitter');
         $this->_google = $this->_container->getParameter('google');
+    }
+
+    private function googleLogin() {
+        $gClient = new \Google_Client();
+
+        $gClient->setApplicationName('flapwet');
+        $gClient->setClientId($this->_google['oauth2_client_id']);
+        $gClient->setClientSecret($this->_google['oauth2_client_secret']);
+        $gClient->setDeveloperKey($this->_google['oauth2_api_key']);
+        $gClient->setAccessToken($this->_session->get('gaccess_token'));
+
+        $plus = new \Google_Service_Plus($gClient);
+
+        $user_profile = $plus->people->get("me");
+
+        if ($google_id = $user_profile['id']) {
+            $this->_session->set('gaccess_token', $gClient->getAccessToken());
+            if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('google', $google_id)) {
+                return $user;
+            }
+        }
+
+        return false;
     }
 
     private function facebookLogin() {
@@ -60,16 +83,17 @@ class Social {
         exit;
     }
 
-    private function googleLogin() {
-        
-    }
-
     public function login() {
         $user = false;
 
         if (!empty($this->_facebook['app_id']) && !empty($this->_facebook['app_secret'])) {
             $user = $this->facebookLogin();
         }
+
+        if (!$user && !empty($this->_google['oauth2_client_id']) && !empty($this->_google['oauth2_client_secret']) && !empty($this->_google['oauth2_api_key'])) {
+            $user = $this->googleLogin();
+        }
+
 //        if (!$user && !empty($this->_twitter['consumer_key']) && !empty($this->_twitter['consumer_secret'])) {
 //
 //            $user = $this->twitterLogin();
@@ -157,6 +181,7 @@ class Social {
 
             $authUrl = $gClient->createAuthUrl();
         }
+
         return $authUrl;
     }
 
