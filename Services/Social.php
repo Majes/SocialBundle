@@ -23,15 +23,16 @@ class Social {
     }
 
     private function googleLogin() {
-        $gClient = new \Google_Client();
+         $gClient = new \Google_Client();
+        $gaccess_token = $this->_session->get('gaccess_token');
 
-        $gClient->setApplicationName('flapwet');
-        $gClient->setClientId($this->_google['oauth2_client_id']);
-        $gClient->setClientSecret($this->_google['oauth2_client_secret']);
-        $gClient->setDeveloperKey($this->_google['oauth2_api_key']);
-       
-        if (isset($this->_session->get('gaccess_token'))) {
-            $gClient->setAccessToken($this->_session->get('gaccess_token'));
+        if (!empty($gaccess_token)) {
+
+            $gClient->setApplicationName('flapwet');
+            $gClient->setClientId($this->_google['oauth2_client_id']);
+            $gClient->setClientSecret($this->_google['oauth2_client_secret']);
+            $gClient->setDeveloperKey($this->_google['oauth2_api_key']);
+            $gClient->setAccessToken($gaccess_token);
 
             $plus = new \Google_Service_Plus($gClient);
 
@@ -48,6 +49,7 @@ class Social {
                 }
             }
         }
+
         return false;
     }
 
