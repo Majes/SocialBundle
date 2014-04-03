@@ -28,10 +28,11 @@ class Social {
 
         if (!empty($gaccess_token)) {
 
+            $google = $this->_google;
             $gClient->setApplicationName('flapwet');
-            $gClient->setClientId($this->_google['oauth2_client_id']);
-            $gClient->setClientSecret($this->_google['oauth2_client_secret']);
-            $gClient->setDeveloperKey($this->_google['oauth2_api_key']);
+            $gClient->setClientId($google['oauth2_client_id']);
+            $gClient->setClientSecret($google['oauth2_client_secret']);
+            $gClient->setDeveloperKey($google['oauth2_api_key']);
             $gClient->setAccessToken($gaccess_token);
 
             $plus = new \Google_Service_Plus($gClient);
