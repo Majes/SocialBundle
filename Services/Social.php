@@ -29,24 +29,25 @@ class Social {
         $gClient->setClientId($this->_google['oauth2_client_id']);
         $gClient->setClientSecret($this->_google['oauth2_client_secret']);
         $gClient->setDeveloperKey($this->_google['oauth2_api_key']);
-        $gClient->setAccessToken($this->_session->get('gaccess_token'));
+       
+        if (isset($this->_session->get('gaccess_token'))) {
+            $gClient->setAccessToken($this->_session->get('gaccess_token'));
 
-        $plus = new \Google_Service_Plus($gClient);
+            $plus = new \Google_Service_Plus($gClient);
 
-        try {
-          $user_profile = $plus->people->get("me");
-        } catch (\Exception $e){
-            $error = $e->getMessage();
-            
-        }
-        if (isset($user_profile['id']) && $user_profile['id'] != '0') {
-             $google_id = $user_profile['id'];
-            $this->_session->set('gaccess_token', $gClient->getAccessToken());
-            if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('google', $google_id)) {
-                return $user;
+            try {
+                $user_profile = $plus->people->get("me");
+            } catch (\Exception $e) {
+                $error = $e->getMessage();
+            }
+            if (isset($user_profile['id']) && $user_profile['id'] != '0') {
+                $google_id = $user_profile['id'];
+                $this->_session->set('gaccess_token', $gClient->getAccessToken());
+                if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('google', $google_id)) {
+                    return $user;
+                }
             }
         }
-
         return false;
     }
 
