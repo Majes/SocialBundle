@@ -33,9 +33,14 @@ class Social {
 
         $plus = new \Google_Service_Plus($gClient);
 
-        $user_profile = $plus->people->get("me");
-
-        if ($google_id = $user_profile['id']) {
+        try {
+          $user_profile = $plus->people->get("me");
+        } catch (\Exception $e){
+            $error = $e->getMessage();
+            
+        }
+        if (isset($user_profile['id']) && $user_profile['id'] != '0') {
+             $google_id = $user_profile['id'];
             $this->_session->set('gaccess_token', $gClient->getAccessToken());
             if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('google', $google_id)) {
                 return $user;
@@ -44,6 +49,7 @@ class Social {
 
         return false;
     }
+
 
     private function facebookLogin() {
         $facebookClass = new \Facebook(array(
