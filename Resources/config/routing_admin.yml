@@ -1,0 +1,19 @@
+_majesteel_instagrams:
+    pattern:  /instagrams
+    defaults: { _controller: MajesSocialBundle:Instagram:instagrams }
+
+_majesteel_instagram_edit:
+    pattern:  /instagram/edit/{id}
+    defaults: { _controller: MajesSocialBundle:Instagram:instagramEdit, id: null }
+
+_majesteel_instagram_access:
+    pattern:  /instagram/access/{id}
+    defaults: { _controller: MajesSocialBundle:Instagram:instagramAccess, id: null }
+
+_majesteel_instagram_delete:
+    pattern:  /instagram/delete/{id}
+    defaults: { _controller: MajesSocialBundle:Instagram:instagramDelete, id: null }
+
+_majesteel_instagram_api:
+    pattern:  /instagram/api/{string}
+    defaults: { _controller: MajesSocialBundle:Instagram:api, string: null }

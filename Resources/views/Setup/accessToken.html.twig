@@ -1,0 +1,43 @@
+{% extends 'MajesCoreBundle::layout.html.twig' %}
+
+{% block title %}MajesCore - Dashboard{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+<div class="container-fluid main-content">
+
+	{{ include(
+                'MajesCoreBundle:common:breadcrumbs.html.twig'
+            ) }}
+
+    <div class="page-title">
+      <h1>{% trans %}%pageTitle%{% endtrans %}</h1>
+    </div>
+	<div class="row">
+	    <div class="widget-container fluid-height clearfix">
+	    	<div class="heading">
+	        	<i class="icon-user"></i> {% trans %}Get your access token{% endtrans %}
+	        </div>
+	        <div class="item social-widget facebook">
+		      <i class="fa fa-facebook-sign"></i>
+		      <div class="social-data">
+		        <h2>
+		          
+		        </h2>
+		        Your Access Token
+		      </div>
+		    </div>
+			<script>
+			$(function(){
+				$('.social-data h2').text(window.location.hash.replace('#access_token=', ''));
+			});
+			</script>
+			
+	    </div>
+	</div>
+
+</div>
+
+
+{% endblock %}

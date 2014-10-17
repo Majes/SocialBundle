@@ -1,0 +1,47 @@
+{% extends 'MajesCoreBundle::layout.html.twig' %}
+
+{% block title %}MajesCore - Media list{% endblock %}
+
+{% block content_header '' %}
+
+{% block content %}
+    
+<div class="container-fluid main-content">
+
+    {{ include(
+                'MajesCoreBundle:common:breadcrumbs.html.twig'
+            ) }}
+
+    <div class="page-title">
+      <h1>{{pageTitle}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="widget-container fluid-height">
+                <div class="heading">
+                    <i class="icon-th-large"></i> {% trans %}%pageSubTitle%{% endtrans %}
+                    <a href="{{ path(urls.add) }}" class="btn btn-success-outline pull-right"><i class="icon-plus"></i>{% trans %}Add new{% endtrans %}</a>
+                </div>
+                <div class="row pricing-table padded">
+                    {% for instagram in datas %}
+                    <div class="col-sm-3">
+                        <div class="widget-container fluid-height list" style="border: 1px solid #007aff;">
+                            <div class="widget-content padded text-center">
+                                <h1><i class="icon icon-instagram"></i> Instagram</h1>
+                                <a class="btn btn-primary btn-block btn-default" href="{{ path(urls.edit, {'id': instagram.id}) }}"><i class="icon-pencil"></i>Edit</a>
+                                <a class="btn btn-block btn-default" href="{{ path(urls.edit, {'id': instagram.id}) }}"><i class="icon-trash"></i>Delete</a> 
+                            </div>
+
+                            <ul>
+                                <li><span>Client ID : </span><span class="pull-right">{{instagram.clientId}}</span></li>
+                                <li><span>Client Secret : </span><span class="pull-right">{{instagram.clientSecret}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
