@@ -1,5 +1,10 @@
 services:
     majes.social:
-        class: Majes\CoreBundle\Services\Social
+        class: Majes\SocialBundle\Services\Social
         arguments: ["@service_container"]
 
+    majes.social.twig.social_extension:
+        class: Majes\SocialBundle\Twig\SocialExtension
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }
