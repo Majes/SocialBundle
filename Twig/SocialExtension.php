@@ -29,7 +29,7 @@ class SocialExtension extends \Twig_Extension
         if(isset($options['value']))
             $facebookTag .= 'value='.$options['value'].' ';
         
-        $url = "http://www.facebook.com/sharer/sharer.php?u=".$url."&title=".$title;
+        $url = "http://www.facebook.com/sharer/sharer.php?u=".$url;
 
         $facebookTag.= 'onclick=' . "window.open('".$url."',";
         $facebookTag .= "'asdas','toolbars=0,width=600,height=600,left=200,top=200,scrollbars=1,resizable=1')";
@@ -75,7 +75,7 @@ class SocialExtension extends \Twig_Extension
         if(isset($options['value']))
             $pinterestTag .= 'value='.$options['value'].' ';
         
-        $url = "http://pinterest.com/pin/create/bookmarklet/?media=".$url."&url=".$url."&is_video=false&description=".$title;
+        $url = "http://pinterest.com/pin/create/bookmarklet/?media=".$url."&url=".$url."&is_video=false&description=".urlencode($title);
 
         $pinterestTag.= 'onclick=' . "window.open('".$url."',";
         $pinterestTag .= "'asdas','toolbars=0,width=600,height=600,left=200,top=200,scrollbars=1,resizable=1')";
