@@ -23,7 +23,7 @@ class SocialExtension extends \Twig_Extension
     }
 
     public function facebookSDkTag(){
-        $facebookApp = $this->_em->getRepository('MajesSocialBundle:Facebook')->findOneBy(array());
+        $facebookApp = $this->_em->getRepository('MajesSocialBundle:Facebook')->findOneBy(array('appId' => $this->_facebook['app_id']));
         if(is_null($facebookApp))
             $SDKtag = "";
         else
@@ -51,7 +51,7 @@ class SocialExtension extends \Twig_Extension
 
     public function facebookShareTag($url, $title=null, $text=null, $options=array()){
 
-        $facebookApp = $this->_em->getRepository('MajesSocialBundle:Facebook')->findOneBy(array());
+        $facebookApp = $this->_em->getRepository('MajesSocialBundle:Facebook')->findOneBy(array('appId' => $this->_facebook['app_id']));
        
         $facebookTag="<a href='#' ";
         if(isset($options['class']))
@@ -65,9 +65,9 @@ class SocialExtension extends \Twig_Extension
         if(is_null($facebookApp))
             $url = $url;
         else {
-            $url = "https://www.facebook.com/dialog/feed?".$url;
+            $url = "https://www.facebook.com/dialog/feed?";
             $url .= "app_id=".$facebookApp->getAppId();
-            $url .= "&link=".$url;
+            $url .= "&link=".urlencode($url);
             $url .= "&display=popup";
             if(isset($options['picture']))
                 $url .= "&picture=".urlencode($options['picture']);
@@ -102,9 +102,11 @@ class SocialExtension extends \Twig_Extension
             $twitterTag .= 'value='.$options['value'].' ';
         
         $title = str_replace(' ', '+', $title);
-        $url ="http://twitter.com/home?status=".$url."+".$title;
+        $shareUrl ="https://twitter.com/intent/tweet?text=".$title."&url=".$url;
+        if(isset($options['hashtags']))
+            $shareUrl .= '&hashtags='.$options['hashtags'];
 
-        $twitterTag.= 'onclick=' . "window.open('".$url."',";
+        $twitterTag.= 'onclick=' . "window.open('".$shareUrl."',";
         $twitterTag .= "'asdas','toolbars=0,width=600,height=600,left=200,top=200,scrollbars=1,resizable=1')";
 
         
