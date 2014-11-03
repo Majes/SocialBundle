@@ -23,9 +23,9 @@
                     <a href="{{ path(urls.add) }}" class="btn btn-success-outline pull-right"><i class="icon-plus"></i>{% trans %}Add new{% endtrans %}</a>
                 </div>
                 <div class="row pricing-table padded">
-                    {% set urls = { 'instagram' : urls} %}
-                    {% for instagram in datas %}
-                        {% include ['MajesSocialBundle:Instagram:app.html.twig'] %}
+                    {% set urls = { 'facebook' : urls} %}
+                    {% for facebook in datas %}
+                        {% include ['MajesSocialBundle:Facebook:app.html.twig'] %}
                     {% endfor %}
                 </div>
             </div>

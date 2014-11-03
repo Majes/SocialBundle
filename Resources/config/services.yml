@@ -5,6 +5,6 @@ services:
 
     majes.social.twig.social_extension:
         class: Majes\SocialBundle\Twig\SocialExtension
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager","%facebook%"]
         tags:
             - { name: twig.extension }

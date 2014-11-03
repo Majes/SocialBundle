@@ -1,3 +1,7 @@
+_majesteel_socials:
+    pattern:  /socials
+    defaults: { _controller: MajesSocialBundle:Admin:socials }
+
 _majesteel_instagrams:
     pattern:  /instagrams
     defaults: { _controller: MajesSocialBundle:Instagram:instagrams }
@@ -17,3 +21,15 @@ _majesteel_instagram_delete:
 _majesteel_instagram_api:
     pattern:  /instagram/api/{string}
     defaults: { _controller: MajesSocialBundle:Instagram:api, string: null }
+
+_majesteel_facebooks:
+    pattern:  /facebooks
+    defaults: { _controller: MajesSocialBundle:Facebook:facebooks }
+
+_majesteel_facebook_edit:
+    pattern:  /facebook/edit/{id}
+    defaults: { _controller: MajesSocialBundle:Facebook:facebookEdit, id: null }
+
+_majesteel_facebook_delete:
+    pattern:  /facebook/delete/{id}
+    defaults: { _controller: MajesSocialBundle:Facebook:facebookDelete, id: null }

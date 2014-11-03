@@ -1,0 +1,14 @@
+<div class="col-sm-3">
+    <div class="widget-container fluid-height list" style="border: 1px solid #007aff;">
+        <div class="widget-content padded text-center">
+            <h1><i class="icon icon-facebook"></i> Facebook</h1>
+            <a class="btn btn-primary btn-block btn-default" href="{{ path(urls.facebook.edit, {'id': facebook.id}) }}"><i class="icon-pencil"></i>Edit</a>
+            <a class="btn btn-block btn-default" href="{{ path(urls.facebook.edit, {'id': facebook.id}) }}"><i class="icon-trash"></i>Delete</a> 
+        </div>
+
+        <ul>
+            <li><span>App ID : </span><span class="pull-right">{{facebook.appId}}</span></li>
+            <li><span>App Secret : </span><span class="pull-right">{{facebook.appSecret}}</span></li>
+        </ul>
+    </div>
+</div>
