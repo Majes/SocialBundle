@@ -63,25 +63,25 @@ class SocialExtension extends \Twig_Extension
         
 
         if(is_null($facebookApp))
-            $url = $url;
+            $shareUrl = $url;
         else {
-            $url = "https://www.facebook.com/dialog/feed?";
-            $url .= "app_id=".$facebookApp->getAppId();
-            $url .= "&link=".urlencode($url);
-            $url .= "&display=popup";
+            $shareUrl = "https://www.facebook.com/dialog/feed?";
+            $shareUrl .= "app_id=".$facebookApp->getAppId();
+            $shareUrl .= "&link=".urlencode($url);
+            $shareUrl .= "&display=popup";
             if(isset($options['picture']))
-                $url .= "&picture=".urlencode($options['picture']);
+                $shareUrl .= "&picture=".urlencode($options['picture']);
             if(isset($options['name']))
-                $url .= "&name=".urlencode($options['name']);
+                $shareUrl .= "&name=".urlencode($options['name']);
             if(isset($options['caption']))
-                $url .= "&caption=".urlencode($options['caption']);
+                $shareUrl .= "&caption=".urlencode($options['caption']);
             if(!is_null($title))
-                $url .= "&description=".urlencode($title);
+                $shareUrl .= "&description=".urlencode($title);
             if(isset($options['redirect_uri']))
-                $url .= "&redirect_uri=".urlencode($options['redirect_uri']);
+                $shareUrl .= "&redirect_uri=".urlencode($options['redirect_uri']);
         }
 
-        $facebookTag.= 'onclick=' . "window.open('".$url."',";
+        $facebookTag.= 'onclick=' . "window.open('".$shareUrl."',";
         $facebookTag .= "'asdas','toolbars=0,width=600,height=600,left=200,top=200,scrollbars=1,resizable=1')";
         
         $facebookTag .= '>';        
