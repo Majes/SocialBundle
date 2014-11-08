@@ -101,8 +101,7 @@ class SocialExtension extends \Twig_Extension
         if(isset($options['value']))
             $twitterTag .= 'value='.$options['value'].' ';
         
-        $title = str_replace(' ', '+', $title);
-        $shareUrl ="https://twitter.com/intent/tweet?text=".$title."&url=".$url;
+        $shareUrl ="https://twitter.com/intent/tweet?text=".urlencode($title)."&url=".$url;
         if(isset($options['hashtags']))
             $shareUrl .= '&hashtags='.$options['hashtags'];
 
