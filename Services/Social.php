@@ -63,8 +63,14 @@ class Social {
         ));
 
         $facebook_id = $facebookClass->getUser();
+
         if ($facebook_id) {
-            $user_profile = $facebookClass->api('/me', 'GET');
+            try{
+                $user_profile = $facebookClass->api('/me', 'GET');
+            } catch(\FacebookApiException $e){
+                return false;                
+            }
+
             $facebook_id = $user_profile['id'];
             if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('facebook', $facebook_id)) {
                 return $user;
