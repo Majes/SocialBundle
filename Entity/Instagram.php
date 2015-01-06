@@ -189,6 +189,37 @@ class Instagram
 	    return $this->apiAuthUrl.'?client_id='.$this->clientId.'&redirect_uri='.$this->redirectUrl.'&response_type=token';
 	}
 
+	public function getUserAuth($scope=null)
+	{   
+		if(is_null($scope))
+			return $this->apiAuthUrl.'?client_id='.$this->clientId.'&redirect_uri='.$this->redirectUrl.'&response_type=code';
+		else
+			return $this->apiAuthUrl.'?client_id='.$this->clientId.'&redirect_uri='.$this->redirectUrl.'&response_type=code&scope='.$scope;
+	}
+
+	public function getUserAuthToken($code=null)
+	{			
+		$ch = curl_init();
+
+	    curl_setopt($ch, CURLOPT_URL, $this->accessTokenUrl);
+	    curl_setopt($ch, CURLOPT_HEADER, false);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('grant_type'=>'authorization_code',
+	    															'client_id' => $this->clientId,
+	    															'client_secret' => $this->clientSecret,
+	    															'code' => $code,
+	    															'redirect_uri' => $this->redirectUrl)));
+
+	    $jsonData = curl_exec($ch);
+	    if (false === $jsonData) {
+	      throw new Exception("Error: _makeOAuthCall() - cURL error: " . curl_error($ch));
+	    }
+	    curl_close($ch);
+	    return json_decode($jsonData);
+	}
+
 	public function getTag($tag){
 
 	    $ch = curl_init();
@@ -267,7 +298,39 @@ class Instagram
 	    return json_decode($jsonData);
 	}
 
+	public function getLikes($instId){
 
+	    $ch = curl_init();
 
+	    curl_setopt($ch, CURLOPT_URL, $this->apiUrl.'media/'.$instId.'/likes?access_token='.$this->accessToken);
+	    curl_setopt($ch, CURLOPT_HEADER, false);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
+	    $jsonData = curl_exec($ch);
+	    if (false === $jsonData) {
+	      throw new Exception("Error: _makeOAuthCall() - cURL error: " . curl_error($ch));
+	    }
+	    curl_close($ch);
+	    return json_decode($jsonData);
+	}
+
+	public function likeIt($instId){
+
+	    $ch = curl_init();
+
+	    curl_setopt($ch, CURLOPT_URL, $this->apiUrl.'media/'.$instId.'/likes');
+	    curl_setopt($ch, CURLOPT_HEADER, false);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('access_token'=>$this->accessToken)));
+
+	    $jsonData = curl_exec($ch);
+	    if (false === $jsonData) {
+	      throw new Exception("Error: _makeOAuthCall() - cURL error: " . curl_error($ch));
+	    }
+	    curl_close($ch);
+	    return json_decode($jsonData);
+	}
 }
