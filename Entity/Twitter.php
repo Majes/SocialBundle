@@ -461,8 +461,10 @@ class Twitter
 	    	$this->setOauthToken($reponse['oauth_token']);
 	    	$this->setOauthTokenSecret($reponse['oauth_token_secret']);
 	    }
-
-	    return $reponse['user_id'];
+	    if(isset($reponse['user_id']))
+	    	return $reponse['user_id'];
+	    else
+	    	return $reponse;
 
 	}
 
@@ -610,12 +612,10 @@ class Twitter
 	    curl_setopt($ch, CURLOPT_POSTFIELDS, array('media[]' => '@'.$mediaIds, 'status' => $status) );
 
 	    $reponse = curl_exec($ch);
-	    // \Doctrine\Common\Util\Debug::dump(curl_getinfo($ch, CURLINFO_HEADER_OUT));exit;
 	    if (false === $reponse) {
 	      throw new Exception("Error: _makeOAuthCall() - cURL error: " . curl_error($ch));
 	    }
 	    curl_close($ch);
-	    \Doctrine\Common\Util\Debug::dump($reponse);exit;
 	    return $reponse;
 	}
 }
