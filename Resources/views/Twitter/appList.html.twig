@@ -1,6 +1,6 @@
 {% extends 'MajesCoreBundle::layout.html.twig' %}
 
-{% block title %}MajesCore - Social apps list{% endblock %}
+{% block title %}MajesCore - Media list{% endblock %}
 
 {% block content_header '' %}
 
@@ -20,18 +20,11 @@
             <div class="widget-container fluid-height">
                 <div class="heading">
                     <i class="icon-th-large"></i> {% trans %}%pageSubTitle%{% endtrans %}
-                    {% for key, link in urls.add %}
-                        <a href="{{ path(link) }}" class="btn btn-success-outline pull-right"><i class="icon-plus"></i>{% trans %}Add new{% endtrans %}{{key|capitalize}}</a>
-                    {% endfor %}
+                    <a href="{{ path(urls.add) }}" class="btn btn-success-outline pull-right"><i class="icon-plus"></i>{% trans %}Add new{% endtrans %}</a>
                 </div>
                 <div class="row pricing-table padded">
-                    {% for instagram in instagrams %}
-                        {% include ['MajesSocialBundle:Instagram:app.html.twig'] %}
-                    {% endfor %}
-                    {% for facebook in facebooks %}
-                        {% include ['MajesSocialBundle:Facebook:app.html.twig'] %}
-                    {% endfor %}
-                    {% for twitter in twitters %}
+                    {% set urls = { 'twitter' : urls} %}
+                    {% for twitter in datas %}
                         {% include ['MajesSocialBundle:Twitter:app.html.twig'] %}
                     {% endfor %}
                 </div>

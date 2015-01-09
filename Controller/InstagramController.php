@@ -71,7 +71,7 @@ class InstagramController extends Controller implements SystemController
     	$instagram = $em->getRepository('MajesSocialBundle:Instagram')->findOneById($id);
 
     	$em->remove($instagram);
-    	$flush();
+    	$em->flush();
 
        	return $this->redirect($this->get('router')->generate('_majesteel_instagrams'));
     }

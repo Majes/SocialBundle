@@ -33,3 +33,23 @@ _majesteel_facebook_edit:
 _majesteel_facebook_delete:
     pattern:  /facebook/delete/{id}
     defaults: { _controller: MajesSocialBundle:Facebook:facebookDelete, id: null }
+
+_majesteel_twitters:
+    pattern:  /twitters
+    defaults: { _controller: MajesSocialBundle:Twitter:twitters }
+
+_majesteel_twitter_edit:
+    pattern:  /twitter/edit/{id}
+    defaults: { _controller: MajesSocialBundle:Twitter:twitterEdit, id: null }
+
+_majesteel_twitter_delete:
+    pattern:  /twitter/delete/{id}
+    defaults: { _controller: MajesSocialBundle:Twitter:twitterDelete, id: null }
+
+_majesteel_twitter_accessToken:
+    pattern:  /twitter/access/{id}
+    defaults: { _controller: MajesSocialBundle:Twitter:twitterAccess, id: null }
+
+_majesteel_twitter_apireturn:
+    pattern:  /twitter/apireturn
+    defaults: { _controller: MajesSocialBundle:Twitter:apiReturn }

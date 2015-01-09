@@ -1,0 +1,20 @@
+{% extends 'MajesTeelBundle::layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    {{ instaSigned }}
+
+{% endblock %}
+
+{% block teel_footer %}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            alert({{ instaSigned }});
+            alert(sessionStorage.getItem('mediaId'));
+            window.opener.App.commons.didit();
+            sessionStorage.setItem('signed', true);
+        });
+    </script>    
+{% endblock %}

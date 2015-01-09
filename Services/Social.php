@@ -63,14 +63,8 @@ class Social {
         ));
 
         $facebook_id = $facebookClass->getUser();
-
         if ($facebook_id) {
-            try{
-                $user_profile = $facebookClass->api('/me', 'GET');
-            } catch(\FacebookApiException $e){
-                return false;                
-            }
-
+            $user_profile = $facebookClass->api('/me', 'GET');
             $facebook_id = $user_profile['id'];
             if ($user = $this->_container->get('doctrine')->getRepository('MajesCoreBundle:User\User')->getUserBySocial('facebook', $facebook_id)) {
                 return $user;
@@ -83,7 +77,7 @@ class Social {
         $request = $this->_container->get('request');
         $session = $this->_session;
 
-//        $oauth_verifier = $request->get('oauth_verifier', null);
+       // $oauth_verifier = $request->get('oauth_verifier', null);
         $twitter_params = $session->get('twitter');
         // TwitterOAuth instance, with two new parameters we got in twitter_login.php
         $twitteroauth = new \TwitterOAuth($twitter_params['consumer_key'], $twitter_params['consumer_secret']);

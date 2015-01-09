@@ -1,0 +1,14 @@
+<div class="col-sm-3">
+    <div class="widget-container fluid-height list" style="border: 1px solid #007aff;">
+        <div class="widget-content padded text-center">
+            <h1><i class="icon icon-twitter"></i> Twitter</h1>
+            <a class="btn btn-primary btn-block btn-default" href="{{ path(urls.twitter.edit, {'id': twitter.id}) }}"><i class="icon-pencil"></i>Edit</a>
+            <a class="btn btn-block btn-default" href="{{ path(urls.twitter.edit, {'id': twitter.id}) }}"><i class="icon-trash"></i>Delete</a> 
+        </div>
+
+        <ul>
+            <li><span>Api Key : </span><span class="pull-right">{{twitter.apiKey}}</span></li>
+            <li><span>Api Secret : </span><span class="pull-right">{{twitter.apiSecret}}</span></li>
+        </ul>
+    </div>
+</div>

@@ -71,7 +71,7 @@ class FacebookController extends Controller implements SystemController
     	$facebook = $em->getRepository('MajesSocialBundle:Facebook')->findOneById($id);
 
     	$em->remove($facebook);
-    	$flush();
+    	$em->flush();
 
        	return $this->redirect($this->get('router')->generate('_majesteel_facebooks'));
     }
