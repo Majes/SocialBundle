@@ -75,17 +75,17 @@ class Twitter
 	private $accessTokenSecret;
 
 	/**
-     * @ORM\Column(name="oauth_token", type="string", length=255, nullable=false)
+     * @ORM\Column(name="oauth_token", type="string", length=255, nullable=true)
      */
-	private $oauthToken;
+	private $oauthToken='';
 
 	/**
-     * @ORM\Column(name="oauth_token_secret", type="string", length=255, nullable=false)
+     * @ORM\Column(name="oauth_token_secret", type="string", length=255, nullable=true)
      */
-	private $oauthTokenSecret;
+	private $oauthTokenSecret='';
 
 	/**
-     * @ORM\Column(name="oauth_verifyer", type="string", length=255, nullable=false)
+     * @ORM\Column(name="oauth_verifyer", type="string", length=255, nullable=true)
      */
 	private $oauthVerifyer;
 

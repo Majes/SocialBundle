@@ -62,23 +62,19 @@ class TwitterType extends AbstractType {
                         new NotBlank())))
 
                 ->add('oauthToken', 'text', array(
-                    'required' => true,
-                    'constraints' => array(
-                        new NotBlank())))
+                    'required' => false))
 
                 ->add('oauthTokenSecret', 'text', array(
-                    'required' => true,
-                    'constraints' => array(
-                        new NotBlank())));
+                    'required' => false));
 
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
-	{
-		$resolver->setDefaults(array(
-		  'data_class' => 'Majes\SocialBundle\Entity\Twitter'
-		));
-	}
+    {
+        $resolver->setDefaults(array(
+          'data_class' => 'Majes\SocialBundle\Entity\Twitter'
+        ));
+    }
 
     public function getName() {
         return 'twitter';
