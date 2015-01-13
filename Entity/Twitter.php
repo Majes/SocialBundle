@@ -417,14 +417,16 @@ class Twitter
 						'oauth_callback'=> $this->callbackUrl,
 						'oauth_signature_method'=> "HMAC-SHA1",
 						'oauth_timestamp' => $timestamp,
-						'oauth_token' => $this->getOauthToken(), 
+						'oauth_token' => $this->oauthToken,
+						'oauth_token_secret' => $this->oauthTokenSecret, 
 						'oauth_consumer_key'=> $this->apiKey,
 						'oauth_version' => "1.0",
 						'oauth_verifier' => $this->oauthVerifyer);
 
-		$psign['oauth_signature'] = rawurlencode($this->getSignature('post', $this->accessTokenUrl, $psign));
+		$psign['oauth_signature'] = rawurlencode($this->getSignature('get', $this->accessTokenUrl, $psign));
 		$psign['oauth_callback'] = rawurlencode($psign['oauth_callback']);
 		$psign['oauth_token'] = rawurlencode($psign['oauth_token']);
+		$psign['oauth_token_secret'] = rawurlencode($psign['oauth_token_secret']);
 
 		$header = 'Authorization: OAuth ';
 		foreach($psign as $key => $value){
@@ -433,14 +435,22 @@ class Twitter
 
 		$header = trim($header, ",");
 
+		$url = $this->accessTokenUrl.'?';
+		foreach($psign as $key => $value){
+		 	$url .= $key.'='.$value.'&';
+		}
+
+		$url = trim($url, "&");
+
+
 	    $ch = curl_init();
 
-	    curl_setopt($ch, CURLOPT_URL, $this->accessTokenUrl);
+	    curl_setopt($ch, CURLOPT_URL, $url);
 	    curl_setopt($ch, CURLOPT_HEADER, false);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_HEADER, false);
-	    curl_setopt($ch, CURLOPT_POST, true);
+	    // curl_setopt($ch, CURLOPT_POST, true);
 	    curl_setopt($ch, CURLOPT_HTTPHEADER, array($header));
 
 
