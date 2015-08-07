@@ -23,7 +23,11 @@ class Social {
     }
 
     private function googleLogin() {
-         $gClient = new \Google_Client();
+        $config = new \Google_Config();
+        $config->setClassConfig('Google_Cache_File', array('directory' => $this->_container->get('kernel')->getRootDir()."/app/cache/Google_Client/"));
+        // Here I set a relative folder to avoid pb on permissions to a folder like /tmp that is not permitted on my mutualised host
+
+		$gClient = new \Google_Client($config);
         $gaccess_token = $this->_session->get('gaccess_token');
 
         if (!empty($gaccess_token)) {
