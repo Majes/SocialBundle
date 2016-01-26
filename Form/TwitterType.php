@@ -5,7 +5,7 @@ namespace Majes\SocialBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TwitterType extends AbstractType {
 
@@ -69,7 +69,7 @@ class TwitterType extends AbstractType {
 
     }
 
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
           'data_class' => 'Majes\SocialBundle\Entity\Twitter'
