@@ -4,6 +4,7 @@ namespace Majes\SocialBundle\Controller;
 
 use Majes\CoreBundle\Controller\SystemController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Majes\SocialBundle\Entity\Instagram;
 use Majes\SocialBundle\Form\InstagramType;
 
@@ -31,9 +32,8 @@ class InstagramController extends Controller implements SystemController
             ));
     }
 
-    public function instagramEditAction($id){
+    public function instagramEditAction(Request $request, $id){
 
-    	$request = $this->getRequest();
     	$em = $this->getDoctrine()->getManager();
     	$instagram = $em->getRepository('MajesSocialBundle:Instagram')->findOneById($id);
 
@@ -47,7 +47,7 @@ class InstagramController extends Controller implements SystemController
             $form = $form->handleRequest($request);
             $instagram = $form->getData();
             if ($form->isValid()) {
-            
+
                 $em->persist($instagram);
                 $em->flush();
 
@@ -86,11 +86,10 @@ class InstagramController extends Controller implements SystemController
         return $this->redirect($accessTokenUrl);
     }
 
-    public function apiAction($string){
-        $request = $this->getRequest();
+    public function apiAction(Request $request, $string){
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('MajesSocialBundle:Setup:accessToken.html.twig', array('pageTitle' => 'Access Token'));
     }
-   
+
 }

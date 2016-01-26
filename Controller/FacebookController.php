@@ -4,6 +4,7 @@ namespace Majes\SocialBundle\Controller;
 
 use Majes\CoreBundle\Controller\SystemController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Majes\SocialBundle\Entity\Facebook;
 use Majes\SocialBundle\Form\FacebookType;
 
@@ -31,9 +32,8 @@ class FacebookController extends Controller implements SystemController
             ));
     }
 
-    public function facebookEditAction($id){
+    public function facebookEditAction(Request $request, $id){
 
-    	$request = $this->getRequest();
     	$em = $this->getDoctrine()->getManager();
     	$facebook = $em->getRepository('MajesSocialBundle:Facebook')->findOneById($id);
 
@@ -47,7 +47,7 @@ class FacebookController extends Controller implements SystemController
             $form = $form->handleRequest($request);
             $facebook = $form->getData();
             if ($form->isValid()) {
-            
+
                 $em->persist($facebook);
                 $em->flush();
 
@@ -75,5 +75,5 @@ class FacebookController extends Controller implements SystemController
 
        	return $this->redirect($this->get('router')->generate('_majesteel_facebooks'));
     }
-   
+
 }

@@ -4,6 +4,7 @@ namespace Majes\SocialBundle\Controller;
 
 use Majes\CoreBundle\Controller\SystemController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Majes\SocialBundle\Entity\Twitter;
 use Majes\SocialBundle\Form\TwitterType;
 
@@ -31,9 +32,8 @@ class TwitterController extends Controller implements SystemController
             ));
     }
 
-    public function twitterEditAction($id){
+    public function twitterEditAction(Request $request, $id){
 
-    	$request = $this->getRequest();
     	$em = $this->getDoctrine()->getManager();
     	$twitter = $em->getRepository('MajesSocialBundle:Twitter')->findOneById($id);
 
@@ -47,7 +47,7 @@ class TwitterController extends Controller implements SystemController
             $form = $form->handleRequest($request);
             $twitter = $form->getData();
             if ($form->isValid()) {
-            
+
                 $em->persist($twitter);
                 $em->flush();
 
@@ -85,5 +85,5 @@ class TwitterController extends Controller implements SystemController
 
         return $this->redirect($accessTokenUrl);
     }
-   
+
 }

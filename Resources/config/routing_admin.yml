@@ -1,55 +1,55 @@
 _majesteel_socials:
-    pattern:  /socials
+    path:  /socials
     defaults: { _controller: MajesSocialBundle:Admin:socials }
 
 _majesteel_instagrams:
-    pattern:  /instagrams
+    path:  /instagrams
     defaults: { _controller: MajesSocialBundle:Instagram:instagrams }
 
 _majesteel_instagram_edit:
-    pattern:  /instagram/edit/{id}
+    path:  /instagram/edit/{id}
     defaults: { _controller: MajesSocialBundle:Instagram:instagramEdit, id: null }
 
 _majesteel_instagram_access:
-    pattern:  /instagram/access/{id}
+    path:  /instagram/access/{id}
     defaults: { _controller: MajesSocialBundle:Instagram:instagramAccess, id: null }
 
 _majesteel_instagram_delete:
-    pattern:  /instagram/delete/{id}
+    path:  /instagram/delete/{id}
     defaults: { _controller: MajesSocialBundle:Instagram:instagramDelete, id: null }
 
 _majesteel_instagram_api:
-    pattern:  /instagram/api/{string}
+    path:  /instagram/api/{string}
     defaults: { _controller: MajesSocialBundle:Instagram:api, string: null }
 
 _majesteel_facebooks:
-    pattern:  /facebooks
+    path:  /facebooks
     defaults: { _controller: MajesSocialBundle:Facebook:facebooks }
 
 _majesteel_facebook_edit:
-    pattern:  /facebook/edit/{id}
+    path:  /facebook/edit/{id}
     defaults: { _controller: MajesSocialBundle:Facebook:facebookEdit, id: null }
 
 _majesteel_facebook_delete:
-    pattern:  /facebook/delete/{id}
+    path:  /facebook/delete/{id}
     defaults: { _controller: MajesSocialBundle:Facebook:facebookDelete, id: null }
 
 _majesteel_twitters:
-    pattern:  /twitters
+    path:  /twitters
     defaults: { _controller: MajesSocialBundle:Twitter:twitters }
 
 _majesteel_twitter_edit:
-    pattern:  /twitter/edit/{id}
+    path:  /twitter/edit/{id}
     defaults: { _controller: MajesSocialBundle:Twitter:twitterEdit, id: null }
 
 _majesteel_twitter_delete:
-    pattern:  /twitter/delete/{id}
+    path:  /twitter/delete/{id}
     defaults: { _controller: MajesSocialBundle:Twitter:twitterDelete, id: null }
 
 _majesteel_twitter_accessToken:
-    pattern:  /twitter/access/{id}
+    path:  /twitter/access/{id}
     defaults: { _controller: MajesSocialBundle:Twitter:twitterAccess, id: null }
 
 _majesteel_twitter_apireturn:
-    pattern:  /twitter/apireturn
+    path:  /twitter/apireturn
     defaults: { _controller: MajesSocialBundle:Twitter:apiReturn }
